@@ -10,17 +10,18 @@ resource "aws_security_group" "pub_example_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
+  ingress {#편의에 의하여
     from_port   = 0
     to_port     = 0
-    protocol    = "icmp"
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  engress {
+  egress {#편의에 의하여
     from_port = 0
     to_port = 0
     protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # 기타 필요한 인바운드 및 아웃바운드 규칙 설정
@@ -38,17 +39,18 @@ resource "aws_security_group" "pri_example_sg" {
     security_groups = [aws_security_group.pub_example_sg.id]
   }
 
-  ingress {
+  ingress {#편의에 의하여
     from_port   = 0
     to_port     = 0
-    protocol    = "icmp"
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  engress {
+  egress {#편의에 의하여
     from_port = 0
     to_port = 0
     protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # 기타 필요한 인바운드 및 아웃바운드 규칙 설정
