@@ -26,6 +26,14 @@ resource "aws_route_table" "my_route_table" {
     gateway_id = aws_internet_gateway.my_internet_gateway.id
   }
 }
+resource "aws_route_table" "pri_nat_route_table" {
+  vpc_id = aws_vpc.my_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.pri_nat_gateway.id
+  }
+}
 resource "aws_route_table_association" "my_subnet1_association" {
   subnet_id      = aws_subnet.my_subnet1_pub.id
   route_table_id = aws_route_table.my_route_table.id
@@ -33,4 +41,13 @@ resource "aws_route_table_association" "my_subnet1_association" {
 resource "aws_route_table_association" "my_subnet2_association" {
   subnet_id      = aws_subnet.my_subnet2_pri.id
   route_table_id = aws_route_table.my_route_table.id
+}
+
+resource "aws_nat_gateway" "pri_nat_gateway" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id = aws_subnet.my_subnet2_pri.id
+}
+
+resource "aws_eip" "nat_eip" {
+  domain = "vpc"
 }
