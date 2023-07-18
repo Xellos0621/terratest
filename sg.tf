@@ -55,3 +55,14 @@ resource "aws_security_group" "pri_example_sg" {
 
   # 기타 필요한 인바운드 및 아웃바운드 규칙 설정
 }
+
+resource "aws_security_group" "example_db_sg" {
+  name_prefix = "example-db-sg"
+  
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # 원하는 IP 범위를 입력하여 RDS에 접근을 허용합니다.
+  }
+}

@@ -1,7 +1,7 @@
 resource "aws_instance" "example1" {
     ami = "${lookup(var.AMIS, var.AWS_REGION)}"
     instance_type = "t2.micro"
-    subnet_id = aws_subnet.my_subnet1_pub.id
+    subnet_id = aws_subnet.subnet1_pub.id
     associate_public_ip_address = true
     vpc_security_group_ids = [aws_security_group.pub_example_sg.id]
     key_name = "${var.KEY_NAME}"
@@ -25,7 +25,7 @@ resource "aws_instance" "example1" {
 resource "aws_instance" "example2" {
     ami = "${lookup(var.AMIS, var.AWS_REGION)}"
     instance_type = "t2.micro"
-    subnet_id = aws_subnet.my_subnet2_pri.id
+    subnet_id = aws_subnet.subnet2_pri.id
     vpc_security_group_ids = [aws_security_group.pri_example_sg.id]
     key_name = "${var.KEY_NAME}"
 
