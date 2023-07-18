@@ -9,3 +9,4 @@ variable "AMIS" {
     ap-northeast-2 = "ami-09952a6ae1787bd90"
   }
 }
+variable "KEY_NAME" {}

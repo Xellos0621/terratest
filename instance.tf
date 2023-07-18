@@ -4,7 +4,7 @@ resource "aws_instance" "example1" {
     subnet_id = aws_subnet.my_subnet1_pub.id
     associate_public_ip_address = true
     vpc_security_group_ids = [aws_security_group.pub_example_sg.id]
-    key_name = "ubuntu"
+    key_name = "${var.KEY_NAME}"
 
     user_data = <<-EOF
       #!/bin/bash
@@ -18,7 +18,7 @@ resource "aws_instance" "example1" {
 
     connection {
       type = "ssh"
-      user = "ubuntu"
+      user = "${var.KEY_NAME}"
     }
 }
 
@@ -27,7 +27,7 @@ resource "aws_instance" "example2" {
     instance_type = "t2.micro"
     subnet_id = aws_subnet.my_subnet2_pri.id
     vpc_security_group_ids = [aws_security_group.pri_example_sg.id]
-    key_name = "ubuntu"
+    key_name = "${var.KEY_NAME}"
 
     user_data = <<-EOF
       #!/bin/bash
@@ -41,6 +41,6 @@ resource "aws_instance" "example2" {
 
     connection {
       type = "ssh"
-      user = "ubuntu"
+      user = "${var.KEY_NAME}"
     }
 }
