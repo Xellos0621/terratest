@@ -40,7 +40,7 @@ resource "aws_route_table_association" "my_subnet1_association" {
 }
 resource "aws_route_table_association" "my_subnet2_association" {
   subnet_id      = aws_subnet.my_subnet2_pri.id
-  route_table_id = aws_route_table.my_route_table.id
+  route_table_id = aws_route_table.pri_nat_route_table.id
 }
 
 resource "aws_nat_gateway" "pri_nat_gateway" {
