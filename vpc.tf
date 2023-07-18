@@ -20,7 +20,7 @@ resource "aws_subnet" "subnet3_pri" {
   cidr_block = "10.0.3.0/24"
   availability_zone = "ap-northeast-2a"
 }
-resource "aws_internet_gateway" "my_internet_gateway" {
+resource "aws_internet_gateway" "main_gateway" {
   vpc_id = aws_vpc.my_vpc.id
 }
 resource "aws_route_table" "my_route_table" {
@@ -28,7 +28,7 @@ resource "aws_route_table" "my_route_table" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.my_internet_gateway.id
+    gateway_id = aws_internet_gateway.main_gateway.id
   }
 }
 resource "aws_route_table" "pri_nat_route_table" {
@@ -51,6 +51,7 @@ resource "aws_route_table_association" "my_subnet2_association" {
 resource "aws_nat_gateway" "pri_nat_gateway" {
   allocation_id = aws_eip.nat_eip.id
   subnet_id = aws_subnet.subnet2_pri.id
+  depends_on = [aws_internet_gateway.main_gateway]
 }
 
 resource "aws_eip" "nat_eip" {
